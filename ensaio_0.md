@@ -1,5 +1,5 @@
 # Processo de desenvolvimento
-## Etapa 1 - Configurações iniciais
+## Etapa 0 - Configurações iniciais
 A primeira etapa de desenvolvimento do bot conversacional é a definição da plataforma para conversação. Nesse caso, foi decidido que seria utilizado o Discord, uma plataforma para conversas, chamadas e compartilhamento de links e arquivos. Essa plataforma possui amplo apoio e fontes de informação para desenvolvimento de bots, a qual possui uma página dedicada para isso. Segue o link [aqui](https://discord.com/developers/applications). <br />
 
 Nessa página, foi necessário criar a aplicação e o bot em si, além de conseguir autorizar ele para ter permissão de mandar mensagens e se conectar ao servidor da disciplina. Essa etapa do desenvolvimento gerou dúvidas na etapa de permissões do bot, especialmente sobre configurações definidas no código de quais informações o bot deveria ouvir e divergências no portal do discord. Para exemplificar, a seguinte linha do código define quais eventos o bot deve ouvir, além de permitir que ele tenha acesso às informações dos membros do servidor.
