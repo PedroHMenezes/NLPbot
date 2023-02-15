@@ -18,4 +18,6 @@ Para essa solução, foi utilizada essa thread do Stack Overflow [aqui](https://
 
 O primeiro ponto de atenção é tomar cuidado para não subir o código com seu Token escrito, e sim utilizar o .gitignore para criar um arquivo que não será levado em consideração (ignorado) no momento de subir as atualizações no GitHub. Dito isso, importante relembrar de criar um arquivo e adicionar o nome desse arquivo no seu .gitignore para evitar problemas de vazamento de token. <br />
 
-Em segundo lugar, 
+Em segundo lugar, utilizamos um servidor hospedado no Insper para rodar máquinas virtuais (VM) dedicadas para o projeto. Nestas máquinas virtuais, estariam os códigos dos nossos bots, pois assim não teriam a necessidade de ficar constantemente rodando nos nossos computadores e explora habilidades de hospedagem de aplicações. Com isso, outro desafio foi a hospedagem e manutenção do código funcionando no ambiente em nuvem. Para ter acesso às máquinas virtuais, foi utilizado um acesso via SSH no servidor disponibilizado via PowerShell. <br />
+
+Para manutenção do código, foi utilizado o comando nohup do Linux ('No Hangups') para continuar rodando o arquivo do bot em background no processamento do servidor. A seguir estão os comandos utilizados para setar essa configuração.
