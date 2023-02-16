@@ -20,9 +20,15 @@ O primeiro ponto de atenção é tomar cuidado para não subir o código com seu
 
 Em segundo lugar, utilizamos um servidor hospedado no Insper para rodar máquinas virtuais (VM) dedicadas para o projeto. Nestas máquinas virtuais, estariam os códigos dos nossos bots, pois assim não teriam a necessidade de ficar constantemente rodando nos nossos computadores e explora habilidades de hospedagem de aplicações. Com isso, outro desafio foi a hospedagem e manutenção do código funcionando no ambiente em nuvem. Para ter acesso às máquinas virtuais, foi utilizado um acesso via SSH no servidor disponibilizado via PowerShell. <br />
 
+Assim, juntando a hospedagem do código no servidor com a necessidade de um arquivo separado que armazena o token do bot, para que a VM tenha acesso ao token, foi necessário enviar para ele via comando scp da seguinte forma.
+
+```
+scp token.py user@ip:~/dest_folder/token.py
+```
+
 Para manutenção do código, foi utilizado o comando nohup do Linux ('No Hangups') para continuar rodando o arquivo do bot em background no processamento do servidor. A seguir estão os comandos utilizados para setar essa configuração.
 
 ```
-$ nohup APS0.py &
+$ nohup python APS0.py &
 ```
 Com isso, o código estava funcionando no background do sistema e, ao fazer logout, o programa continua sendo executado. Nesse caso, a fonte utilizada foi essa [aqui](http://www.bosontreinamentos.com.br/linux/comando-nohup-executar-comandos-apos-sair-do-shell-no-linux/).
