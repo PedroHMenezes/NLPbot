@@ -28,10 +28,14 @@ async def on_message(message):
         await message.channel.send('Fala meu! Meu criador é o Pedro Menezes.\nSe quiser falar com ele, esse é o email: pedrohmo@al.insper.edu.br')
 
     if "!run" in message.content.lower():
-        message = message.content.lower().replace("!run","")
-        tickers = YFinance.tickers(message)
-        df = YFinance.database(message)
+        mensagem = message.content.lower().replace("!run","")
+        tickers = YFinance.tickers(mensagem)
+        print(tickers)
+        df = YFinance.database(mensagem)
+        print(df)
+        print(len(df.axes[1]))
         for company in tickers:
+            print(company)
             await message.channel.send(YFinance.last_price(company,df))
             await message.channel.send(YFinance.return_1w(company,df))
             await message.channel.send(YFinance.return_1m(company,df))
@@ -39,6 +43,3 @@ async def on_message(message):
 
 
 client.run(config.token)
- """
-
- """
