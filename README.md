@@ -7,6 +7,12 @@ Bot conversacional desenvolvido na disciplina de *Natural Language Processing* r
 
 Para mais informações sobre o desenvolvimento até o momento, acesse [aqui](ensaio_0.md)
 
+Para fazer o bot funcionar localmente, rode o seguinte comando no terminal.
+
+```
+python APS0.py
+```
+
 
 
 
