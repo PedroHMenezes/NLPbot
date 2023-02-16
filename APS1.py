@@ -28,6 +28,7 @@ async def on_message(message):
         await message.channel.send('Fala meu! Meu criador é o Pedro Menezes.\nSe quiser falar com ele, esse é o email: pedrohmo@al.insper.edu.br')
 
     if "!run" in message.content.lower():
+        await message.channel.send('Tô olhando pra você, menzinho...')
         mensagem = message.content.lower().replace("!run","")
         tickers = YFinance.tickers(mensagem)
         df = YFinance.database(mensagem)

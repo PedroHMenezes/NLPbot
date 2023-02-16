@@ -21,7 +21,7 @@ def last_price(company, df):
     else:
         price = df['Close'].iloc[-2]
     yf_company = yf.Ticker(company)
-    currency = yf_company.info['financialCurrency']
+    currency = yf_company.fast_info['currency']
     return 'O preço do fechamento de ontem para {0} é {1} {2:.2f}'.format(company, currency, price)
 
 def return_1w(company, df):
