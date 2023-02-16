@@ -30,16 +30,14 @@ async def on_message(message):
     if "!run" in message.content.lower():
         mensagem = message.content.lower().replace("!run","")
         tickers = YFinance.tickers(mensagem)
-        print(tickers)
         df = YFinance.database(mensagem)
-        print(df)
-        print(len(df.axes[1]))
         for company in tickers:
             print(company)
             await message.channel.send(YFinance.last_price(company,df))
             await message.channel.send(YFinance.return_1w(company,df))
             await message.channel.send(YFinance.return_1m(company,df))
             await message.channel.send(YFinance.return_1y(company,df))
+            await message.channel.send("---------------------------------")
 
 
 client.run(config.token)
