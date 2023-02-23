@@ -11,7 +11,6 @@ client = discord.Client(intents=intents)
 async def on_ready():
     guild = discord.utils.get(client.guilds, name='A Cidade dos Robôs')
     channel = discord.utils.get(guild.text_channels, name='bot-fest')
-    await channel.send('O bot está online!')
 
 @client.event
 async def on_message(message):
@@ -25,20 +24,30 @@ async def on_message(message):
         await message.channel.send('Essa é a fonte do meu código:\nhttps://github.com/PedroHMenezes/NLPbot')
     
     if message.content.lower() == '!author':
-        await message.channel.send('Fala meu! Meu criador é o Pedro Menezes.\nSe quiser falar com ele, esse é o email: pedrohmo@al.insper.edu.br')
+        await message.channel.send('Tudo bem? Meu criador é o Pedro Menezes.\nSe quiser falar com ele, esse é o email: pedrohmo@al.insper.edu.br')
 
     if "!run" in message.content.lower():
-        await message.channel.send('Tô olhando pra você, menzinho...')
+        await message.channel.send('Só um segundo...')
         mensagem = message.content.lower().replace("!run","")
-        tickers = YFinance.tickers(mensagem)
-        df = YFinance.database(mensagem)
-        for company in tickers:
-            print(company)
-            await message.channel.send(YFinance.last_price(company,df))
-            await message.channel.send(YFinance.return_1w(company,df))
-            await message.channel.send(YFinance.return_1m(company,df))
-            await message.channel.send(YFinance.return_1y(company,df))
-            await message.channel.send("---------------------------------")
+        try:
+            tickers = YFinance.tickers(mensagem)
+            df = YFinance.database(mensagem)       
+            for company in tickers:
+                await message.channel.send(YFinance.last_price(company,df))
+                await message.channel.send(YFinance.return_1w(company,df))
+                await message.channel.send(YFinance.return_1m(company,df))
+                await message.channel.send(YFinance.return_1y(company,df))
+                await message.channel.send("---------------------------------")
+        except:
+            await message.channel.send('Vish... não achei nada aqui não, é esse ticker mesmo?')
+
+
+    if "!help" in message.content.lower():
+        await message.channel.send('Para utilizar minhas funções, basta rodar **!run + (Ticker de alguma empresa)** para ter informações sobre o preço da ação daquela empresa \n')
+        await message.channel.send('__**Exemplo:**__ !run AMD para ter informações sobre a ação da AMD \n')
+        await message.channel.send('> Alguns tickers para facilitar: \n> • Nvidia - NVDA\n> • Intel - INTC\n> • Ambev - ABEV\n> • Alibaba - BABA \n\nTodos os tickers podem ser acessados por aqui: https://finance.yahoo.com/')
+        await message.channel.send('\nOBS: As informações são até o fechamento do último dia útil antes de hoje.')
+                                
 
 
 client.run(config.token)

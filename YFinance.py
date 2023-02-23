@@ -45,3 +45,9 @@ def return_1y(company, df):
         retorno = (df['Close'].iloc[-2])/(df['Close'].iloc[0])-1
     return 'Retorno em 1 ano: {0:.2%}'.format(retorno)
 
+def momentum_11m(company,df):
+    if len(df.axes[1]) > 6:
+        momentum = (df['Close'].iloc[-24][company])/(df['Close'].iloc[0][company])-1
+    else:
+        momentum = (df['Close'].iloc[-24])/(df['Close'].iloc[0])-1
+    return 'Momentum de 11m: {0:.2%}'.format(momentum)
