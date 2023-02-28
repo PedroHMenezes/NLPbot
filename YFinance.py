@@ -2,11 +2,11 @@ import yfinance as yf
 import re
 
 def tickers (companies):
-    tickers_list = re.findall(r'\b\w+\b', companies.upper())
+    tickers_list = re.findall(r'\b[0-9A-Za-z.]+\b', companies.upper())
     return tickers_list
     
 def database (companies):
-    tickers_list = re.findall(r'\b\w+\b', companies.upper())
+    tickers_list = re.findall(r'\b[0-9A-Za-z.]+\b', companies.upper())
     tickers_string = " ".join(tickers_list)
     df = yf.download(tickers = tickers_list,
                 period="1y",
