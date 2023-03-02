@@ -1,4 +1,4 @@
-# Bot Jorginho
+# Finance Bot
 
 Bot conversacional desenvolvido na disciplina de *Natural Language Processing* realizada pelo Insper. <br />
 **Aluno**: Pedro Menezes <br />
