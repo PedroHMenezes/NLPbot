@@ -10,7 +10,7 @@ Para mais informações sobre o desenvolvimento até o momento, acesse [aqui](en
 Para fazer o bot funcionar localmente, rode o seguinte comando no terminal.
 
 ```
-python APS0.py
+python APS1.py
 ```
 
 
