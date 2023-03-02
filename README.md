@@ -7,7 +7,15 @@ Bot conversacional desenvolvido na disciplina de *Natural Language Processing* r
 
 Para mais informações sobre o desenvolvimento até o momento, acesse [aqui](ensaio_0.md).
 
-Para fazer o bot funcionar localmente, rode o seguinte comando no terminal.
+Sobre a implementação da API do Yahoo Finance, acesse [aqui](ensaio_1.md).
+
+Para fazer o bot funcionar localmente, é necessário instalar a biblioteca Yahoo Finance com o comando abaixo em seu terminal.
+
+```
+pip install yfinance
+```
+
+Após isso, para fazer o bot funcionar localmente, rode o seguinte comando no terminal.
 
 ```
 python APS1.py
