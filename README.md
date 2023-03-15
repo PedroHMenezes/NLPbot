@@ -20,7 +20,7 @@ pip install yfinance
 Após isso, para fazer o bot funcionar localmente, rode o seguinte comando no terminal.
 
 ```
-python APS1.py
+python APS2.py
 ```
 
 
