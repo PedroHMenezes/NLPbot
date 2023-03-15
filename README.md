@@ -9,6 +9,8 @@ Para mais informações sobre o desenvolvimento até o momento, acesse [aqui](en
 
 Sobre a implementação da API do Yahoo Finance, acesse [aqui](ensaio_1.md).
 
+Sobre mais informações acerca do web crawling / scraping, acesse [aqui](ensaio_2.md).
+
 Para fazer o bot funcionar localmente, é necessário instalar a biblioteca Yahoo Finance com o comando abaixo em seu terminal.
 
 ```
