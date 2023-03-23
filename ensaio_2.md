@@ -11,3 +11,6 @@ Naturalmente, foram necessárias algumas iterações com o chatbot para compreen
 ```
 pip install -U scikit-learn
 ```
+```
+pip install nltk
+```
