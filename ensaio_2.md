@@ -6,3 +6,11 @@ Para essa funcionalidade, foi utilizado o ChatGPT, no qual foi perguntado a ele 
 
 Naturalmente, foram necessárias algumas iterações com o chatbot para compreensão completa do problema e ajustes de pequenos erros que surgiram, sendo algumas das perguntas: "How can I make the web scraping above find all occurrences of a specific term?" ou "How can I save the page content in a local database?" 
 
+## Bibliotecas necessárias
+
+```
+pip install -U scikit-learn
+```
+```
+pip install nltk
+```
