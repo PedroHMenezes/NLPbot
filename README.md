@@ -17,8 +17,17 @@ Para fazer o bot funcionar localmente, é necessário instalar a biblioteca Yaho
 pip install yfinance
 ```
 
-Após isso, para fazer o bot funcionar localmente, rode o seguinte comando no terminal.
+Após isso, para fazer o bot funcionar localmente, rode os seguintes comandos no terminal.
 
+
+## Bibliotecas necessárias
+
+```
+pip install -U scikit-learn
+```
+```
+pip install nltk
+```
 ```
 python APS2.py
 ```
