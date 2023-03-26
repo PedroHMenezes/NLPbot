@@ -37,7 +37,6 @@ def crawl (url):
         text = paragraph.get_text().strip()
         if text:
             human_text.append(text)
-
     # Junção do texto presente no HTML
     texto = '\n'.join(human_text)
 
@@ -51,7 +50,8 @@ def crawl (url):
             if absolute_url.startswith('//'):
                 absolute_url = urljoin('https:',absolute_url)
             elif absolute_url.startswith('/'):
-                absolute_url = urljoin('https://en.wikipedia.org',absolute_url)
+
+                absolute_url = urljoin(response.url,absolute_url)
             links_main.append(absolute_url)    
             links.append(absolute_url)
 
@@ -113,7 +113,10 @@ def crawl (url):
         with open(json_file_path, "w+") as f:
             json.dump(new_data_joint, f)
 
+    return doc_frases, doc_links, doc_title 
+
     # Coleta dos dados para montagem do índice invertido
+def indice_invertido(doc_frases, doc_links, doc_title):    
     folder_path = 'links'
     for filename in os.listdir(folder_path):
         file_path = os.path.join(folder_path, filename)
@@ -137,8 +140,8 @@ def crawl (url):
             if tfidf[j, vectorizer.vocabulary_[w] ] > 0:
                 indice_palavras[w][j] = tfidf[ j, vectorizer.vocabulary_[w] ]
                 
-    return indice_palavras, doc_links, doc_title
-                
+    return indice_palavras 
+               
 def search(palavras, indice, doc_links, doc_title):
     n = 1
     palavras = re.findall('\w+',palavras)
@@ -156,17 +159,21 @@ def search(palavras, indice, doc_links, doc_title):
             raise ValueError("Não está presente no banco de dados")
         dict_search = dict(sorted(resultado.items(), reverse = True, key=lambda item: item[1])[0:n])
         index = list(dict_search.keys())[0]
-        return 'Achei esse link para sua busca:\n{0}: {1}'.format(doc_title[index],doc_links[index])    
+        return 'Achei esse link para sua busca:\n{0}: {1}'.format(doc_title[index],doc_links[index])
+        
     except:
         return 'Não há informações para {} no meu banco de dados. Gostaria de pesquisar outro termo?'.format(" ".join(palavras))
 
 def wn_search(palavras, indice, doc_links, doc_title):
     n = 1
     palavras = re.findall('\w+',palavras)
+    similarity = 0
+    meaning = ''
     assert type(palavras)==list
     resultado = dict()
     try:
         for p in palavras:
+            print(p)
             if p in indice.keys():
                 for documento in indice[p].keys():
                     if documento not in resultado.keys():
@@ -174,15 +181,29 @@ def wn_search(palavras, indice, doc_links, doc_title):
                     else:
                         resultado[documento] += indice[p][documento]
             else:
-                syn = wordnet.synsets(p)
-                for s in syn:
-                    for l in s.lemmas():
-                        if l.name() != p:
-                            if l.name() in list(indice.keys()):
-                                palavras.append(l.name())
+                syn = wordnet.synsets(p)[0]
+                for s in indice.keys():  
+                    print(s)              
+                    try:
+                        syn_s = wordnet.synsets(s)[0]
+                        syns_similarity = syn.path_similarity(syn_s) 
+                        if similarity < syns_similarity:
+                            similarity = syn.path_similarity(syn_s)
+                            meaning = s
+                    except:
+                        continue
+                palavras.append(meaning)
+                for documento in indice[meaning].keys():
+                    if documento not in resultado.keys():
+                        resultado[documento] = indice[meaning][documento]
+                    else:
+                        resultado[documento] += indice[meaning][documento]
+
+
         dict_search = dict(sorted(resultado.items(), reverse = True, key=lambda item: item[1])[0:n])
         index = list(dict_search.keys())[0]
-        return "Achei esse link para sua busca: {0}: {1}".format(doc_title[index],doc_links[index])
-    
+        return "Achei esse link para sua busca:\n{0}: {1}".format(doc_title[index],doc_links[index])
     except: 
-        return 'Não há informações para {} no meu banco de dado mais amplo. Gostaria de pesquisar outro termo?'.format(" ".join(palavras))
+        return 'Não há informações para {} no meu banco de dados. Gostaria de pesquisar outro termo?'.format(" ".join(palavras))
+
+

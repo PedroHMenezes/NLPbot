@@ -5,19 +5,18 @@ import crawl_functions as cf
 import requests
 from bs4 import BeautifulSoup
 import re
+import multiprocessing
+import time
 
 intents = discord.Intents.default()
 intents.members = True
 
 client = discord.Client(intents=intents)
 
-# indice_palavras = cf.dictionary()
-# doc_links = cf.lista()
-# doc_title = cf.lista()
-
 indice_palavras = {}
 doc_links = []
 doc_title = []
+doc_frases = []
 
 @client.event
 async def on_ready():
@@ -26,7 +25,7 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
-    global indice_palavras, doc_links, doc_title
+    global indice_palavras, doc_links, doc_title, doc_frases
 
     if message.author == client.user:
         return
@@ -63,7 +62,8 @@ async def on_message(message):
         await message.channel.send('Só um segundo...')
         mensagem = message.content.lower().replace("!crawl","")
         try:
-            indice_palavras, doc_links, doc_title = cf.crawl(mensagem)
+            doc_frases, doc_links, doc_title = cf.crawl(mensagem)
+            indice_palavras = cf.indice_invertido(doc_frases, doc_links, doc_title)
             await message.channel.send('Adicionei ao meu banco de dados!')
         except:
             await message.channel.send('Tive um erro com esse link...')
@@ -71,17 +71,16 @@ async def on_message(message):
     if "!search" in message.content.lower():
         await message.channel.send('Só um segundo...')
         mensagem = message.content.lower().replace('!search','').strip()
-        try:
-            return_message = cf.search(mensagem, indice_palavras, doc_links, doc_title)
-            await message.channel.send(return_message)
-        except:
-            indice_palavras, doc_links, doc_title = cf.crawl('')
-            return_message = cf.search(mensagem, indice_palavras, doc_links, doc_title)
-            await message.channel.send(return_message)
+        if len(indice_palavras) == 0:
+            indice_palavras = cf.indice_invertido(doc_frases, doc_links, doc_title)
+        return_message = cf.search(mensagem, indice_palavras, doc_links, doc_title)
+        await message.channel.send(return_message)
 
     if "!wn_search" in message.content.lower():
         await message.channel.send('Só um segundo...')
-        mensagem = message.content.lower().replace('!wn_search','')
+        mensagem = message.content.lower().replace('!wn_search','').strip()
+        if len(indice_palavras) == 0:
+            indice_palavras = cf.indice_invertido(doc_frases, doc_links, doc_title)
         return_message = cf.wn_search(mensagem, indice_palavras, doc_links, doc_title)
         await message.channel.send(return_message)       
 
