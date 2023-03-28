@@ -173,7 +173,6 @@ def wn_search(palavras, indice, doc_links, doc_title):
     resultado = dict()
     try:
         for p in palavras:
-            print(p)
             if p in indice.keys():
                 for documento in indice[p].keys():
                     if documento not in resultado.keys():
@@ -198,10 +197,11 @@ def wn_search(palavras, indice, doc_links, doc_title):
                     else:
                         resultado[documento] += indice[meaning][documento]
 
-
+        if meaning == '':
+            meaning = p
         dict_search = dict(sorted(resultado.items(), reverse = True, key=lambda item: item[1])[0:n])
         index = list(dict_search.keys())[0]
-        return "Achei esse link para sua busca:\n{0}: {1}".format(doc_title[index],doc_links[index])
+        return "O termo mais parecido foi {0}.\nAchei esse link para sua busca:\n{1}: {2}".format(meaning, doc_title[index],doc_links[index])
     except: 
         return 'Não há informações para {} no meu banco de dados. Gostaria de pesquisar outro termo?'.format(" ".join(palavras))
 
