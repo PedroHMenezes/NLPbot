@@ -182,8 +182,7 @@ def wn_search(palavras, indice, doc_links, doc_title):
                         resultado[documento] += indice[p][documento]
             else:
                 syn = wordnet.synsets(p)[0]
-                for s in indice.keys():  
-                    print(s)              
+                for s in indice.keys():             
                     try:
                         syn_s = wordnet.synsets(s)[0]
                         syns_similarity = syn.path_similarity(syn_s) 

@@ -63,6 +63,7 @@ async def on_message(message):
         mensagem = message.content.lower().replace("!crawl","")
         try:
             doc_frases, doc_links, doc_title = cf.crawl(mensagem)
+            await message.channel.send('Só mais um pouco...')
             indice_palavras = cf.indice_invertido(doc_frases, doc_links, doc_title)
             await message.channel.send('Adicionei ao meu banco de dados!')
         except:
