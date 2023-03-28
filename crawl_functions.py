@@ -19,7 +19,7 @@ def crawl (url):
     doc_frases = []
     doc_links = []
     doc_title = []
-    depth = 3
+    depth = 8
 
     # Primeira busca sem utilizar crawl exige isso
     if len(url) == 0:
