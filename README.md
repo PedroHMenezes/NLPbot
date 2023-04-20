@@ -11,6 +11,8 @@ Sobre a implementação da API do Yahoo Finance, acesse [aqui](ensaio_1.md).
 
 Sobre mais informações acerca do web crawling / scraping, acesse [aqui](ensaio_2.md).
 
+Sobre a parte de filtragem de conteúdo, acesse [aqui](ensaio_3.md).
+
 Para fazer o bot funcionar localmente, é necessário instalar a biblioteca Yahoo Finance com o comando abaixo em seu terminal.
 
 ```
@@ -29,7 +31,7 @@ pip install -U scikit-learn
 pip install nltk
 ```
 ```
-python APS2.py
+python APS3.py
 ```
 
 
