@@ -5,7 +5,7 @@ Bot conversacional desenvolvido na disciplina de *Natural Language Processing* r
 **Professor**: Tiago Tavares <br />
 **Período**: 1/2023 <br />
 
-Para mais informações sobre o desenvolvimento até o momento, acesse [aqui](ensaio_0.md).
+Para mais informações sobre o desenvolvimento até o momento, acesse [aqui](ensaios/ensaio_0.md).
 
 Sobre a implementação da API do Yahoo Finance, acesse [aqui](ensaio_1.md).
 
