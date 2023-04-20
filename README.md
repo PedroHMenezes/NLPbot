@@ -31,7 +31,7 @@ pip install -U scikit-learn
 pip install nltk
 ```
 ```
-python APS2.py
+python APS3.py
 ```
 
 
