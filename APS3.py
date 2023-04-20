@@ -17,6 +17,7 @@ indice_palavras = {}
 doc_links = []
 doc_title = []
 doc_frases = []
+score = []
 
 @client.event
 async def on_ready():
@@ -25,7 +26,7 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
-    global indice_palavras, doc_links, doc_title, doc_frases
+    global indice_palavras, doc_links, doc_title, doc_frases, score
 
     if message.author == client.user:
         return
@@ -76,26 +77,26 @@ async def on_message(message):
 
         if len(indice_palavras) == 0:
             indice_palavras, score = cf.indice_invertido(doc_frases, doc_links, doc_title)
-    
+
         if len(mensagem) > 1:
             mensagem[1] = float(mensagem[1].replace('th=',''))
-            print(mensagem)
             return_message = cf.search(mensagem[0], indice_palavras, doc_links, doc_title, score,mensagem[1])
-        return_message = cf.search(mensagem[0], indice_palavras, doc_links, doc_title, score,threshold=-1)
+        else:
+            return_message = cf.search(mensagem[0], indice_palavras, doc_links, doc_title, score,threshold=-1)
         await message.channel.send(return_message)
 
     if "!wn_search" in message.content.lower():
         await message.channel.send('Só um segundo...')
         mensagem = message.content.lower().replace('!wn_search','').strip()
         mensagem = mensagem.split(' ')
-        print(mensagem)
-        mensagem[1] = float(mensagem[1].replace('th='))
-        print(mensagem)
         if len(indice_palavras) == 0:
             indice_palavras, score = cf.indice_invertido(doc_frases, doc_links, doc_title)
-        return_message = cf.wn_search(mensagem[0], indice_palavras, doc_links, doc_title, score, mensagem[1])
-        await message.channel.send(return_message)       
-
+        if len(mensagem) > 1:
+            mensagem[1] = float(mensagem[1].replace('th=',''))
+            return_message = cf.search(mensagem[0], indice_palavras, doc_links, doc_title, score,mensagem[1])
+        else:
+            return_message = cf.search(mensagem[0], indice_palavras, doc_links, doc_title, score,threshold=-1)
+        await message.channel.send(return_message)
 
     if "!help" in message.content.lower():
         await message.channel.send('Para utilizar minhas funções, basta rodar **!run + (Ticker de alguma empresa)** para ter informações sobre o preço da ação daquela empresa \n')

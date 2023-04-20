@@ -25,7 +25,7 @@ def crawl (url):
     doc_frases = []
     doc_links = []
     doc_title = []
-    depth = 3
+    depth = 8
 
     # Primeira busca sem utilizar crawl exige isso
     if len(url) == 0:
@@ -150,7 +150,7 @@ def indice_invertido(doc_frases, doc_links, doc_title):
                 
     return indice_palavras, score
                
-def search(palavras, indice, doc_links, doc_title, score, threshold = -1):
+def search(palavras, indice, doc_links, doc_title, score, threshold):
     n = 10
     palavras = re.findall('\w+',palavras)
     assert type(palavras)==list
@@ -169,8 +169,9 @@ def search(palavras, indice, doc_links, doc_title, score, threshold = -1):
         for i in list(dict_search.keys()):
             if score[i] >= threshold:
                 return 'Achei esse link para sua busca:\n{0}: {1}'.format(doc_title[i],doc_links[i])
+        raise ValueError('Não há informações para esse filtro')
     except:
-        return 'Não há informações para {} no meu banco de dados. Gostaria de pesquisar outro termo?'.format(" ".join(palavras))
+        return 'Não há informações para {} com esses filtros no meu banco de dados. Gostaria de pesquisar outro termo?'.format(" ".join(palavras))
 
 def wn_search(palavras, indice, doc_links, doc_title, score, threshold = -1):
     n = 1
