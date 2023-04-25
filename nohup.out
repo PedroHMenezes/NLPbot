@@ -17124,3 +17124,4 @@ Loop thread traceback (most recent call last):
 
 [2023-04-20 17:49:50] [INFO    ] discord.gateway: Shard ID None session has been invalidated.
 [2023-04-20 17:49:56] [INFO    ] discord.gateway: Shard ID None has connected to Gateway (Session ID: 2ff2305e4df25c79a333032f6817cc01).
+python: can't open file 'APS3.py': [Errno 2] No such file or directory
