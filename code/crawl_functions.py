@@ -8,12 +8,18 @@ import re
 from sklearn.feature_extraction.text import TfidfVectorizer
 from nltk.corpus import wordnet
 import nltk
+import joblib
 nltk.download('wordnet')
 nltk.download('omw')
 nltk.download('omw-1.4')
 
+classificador = joblib.load('aps3_model.joblib')
+
+def estima_prob (conteudo):
+    prob = classificador.predict_proba([conteudo])
+    return (prob[0][0] - prob[0][1])
+
 def crawl (url):
-    
     # Inicialização de variáveis
     human_text = []
     doc_frases = []
@@ -116,7 +122,8 @@ def crawl (url):
     return doc_frases, doc_links, doc_title 
 
     # Coleta dos dados para montagem do índice invertido
-def indice_invertido(doc_frases, doc_links, doc_title):    
+def indice_invertido(doc_frases, doc_links, doc_title):
+    score = []
     folder_path = 'links'
     for filename in os.listdir(folder_path):
         file_path = os.path.join(folder_path, filename)
@@ -127,6 +134,7 @@ def indice_invertido(doc_frases, doc_links, doc_title):
                     doc_frases.append(values['text'])
                     doc_links.append(values['links'][0])
                     doc_title.append(indice)
+                    score.append(estima_prob(values['text']))
 
     # Vetorização por TFIDF
     vectorizer = TfidfVectorizer(use_idf=True, stop_words = 'english')
@@ -140,10 +148,10 @@ def indice_invertido(doc_frases, doc_links, doc_title):
             if tfidf[j, vectorizer.vocabulary_[w] ] > 0:
                 indice_palavras[w][j] = tfidf[ j, vectorizer.vocabulary_[w] ]
                 
-    return indice_palavras 
+    return indice_palavras, score
                
-def search(palavras, indice, doc_links, doc_title):
-    n = 1
+def search(palavras, indice, doc_links, doc_title, score, threshold):
+    n = 10
     palavras = re.findall('\w+',palavras)
     assert type(palavras)==list
     resultado = dict()
@@ -158,13 +166,14 @@ def search(palavras, indice, doc_links, doc_title):
         if not bool(resultado):
             raise ValueError("Não está presente no banco de dados")
         dict_search = dict(sorted(resultado.items(), reverse = True, key=lambda item: item[1])[0:n])
-        index = list(dict_search.keys())[0]
-        return 'Achei esse link para sua busca:\n{0}: {1}'.format(doc_title[index],doc_links[index])
-        
+        for i in list(dict_search.keys()):
+            if score[i] >= threshold:
+                return 'Achei esse link para sua busca:\n{0}: {1}'.format(doc_title[i],doc_links[i])
+        raise ValueError('Não há informações para esse filtro')
     except:
-        return 'Não há informações para {} no meu banco de dados. Gostaria de pesquisar outro termo?'.format(" ".join(palavras))
+        return 'Não há informações para {} com esses filtros no meu banco de dados. Gostaria de pesquisar outro termo?'.format(" ".join(palavras))
 
-def wn_search(palavras, indice, doc_links, doc_title):
+def wn_search(palavras, indice, doc_links, doc_title, score, threshold = -1):
     n = 1
     palavras = re.findall('\w+',palavras)
     similarity = 0
@@ -200,9 +209,8 @@ def wn_search(palavras, indice, doc_links, doc_title):
         if meaning == '':
             meaning = p
         dict_search = dict(sorted(resultado.items(), reverse = True, key=lambda item: item[1])[0:n])
-        index = list(dict_search.keys())[0]
-        return "O termo mais parecido foi {0}.\nAchei esse link para sua busca:\n{1}: {2}".format(meaning, doc_title[index],doc_links[index])
+        for i in list(dict_search.keys()):
+            if score[i] >= threshold:
+                return 'Achei esse link para sua busca:\n{0}: {1}'.format(doc_title[i],doc_links[i])
     except: 
         return 'Não há informações para {} no meu banco de dados. Gostaria de pesquisar outro termo?'.format(" ".join(palavras))
-
-
