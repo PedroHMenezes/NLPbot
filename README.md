@@ -5,13 +5,13 @@ Bot conversacional desenvolvido na disciplina de *Natural Language Processing* r
 **Professor**: Tiago Tavares <br />
 **Período**: 1/2023 <br />
 
-Para mais informações sobre o desenvolvimento até o momento, acesse [aqui](ensaio_0.md).
+Para mais informações sobre o desenvolvimento até o momento, acesse [aqui](ensaios/ensaio_0.md).
 
-Sobre a implementação da API do Yahoo Finance, acesse [aqui](ensaio_1.md).
+Sobre a implementação da API do Yahoo Finance, acesse [aqui](ensaios/ensaio_1.md).
 
-Sobre mais informações acerca do web crawling / scraping, acesse [aqui](ensaio_2.md).
+Sobre mais informações acerca do web crawling / scraping, acesse [aqui](ensaios/ensaio_2.md).
 
-Sobre a parte de filtragem de conteúdo, acesse [aqui](ensaio_3.md).
+Sobre a parte de filtragem de conteúdo, acesse [aqui](ensaios/ensaio_3.md).
 
 Para fazer o bot funcionar localmente, é necessário instalar a biblioteca Yahoo Finance com o comando abaixo em seu terminal.
 
