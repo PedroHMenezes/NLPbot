@@ -13,6 +13,7 @@ nltk.download('wordnet')
 nltk.download('omw')
 nltk.download('omw-1.4')
 
+# Modelo de classificação
 classificador = joblib.load('aps3_model.joblib')
 
 def estima_prob (conteudo):
@@ -62,7 +63,7 @@ def crawl (url):
             links.append(absolute_url)
 
     # Criação da pasta para armazenamento
-    folder_name = "links"
+    folder_name = "../links"
     if not os.path.exists(folder_name):
         os.makedirs(folder_name)
 
