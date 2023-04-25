@@ -124,7 +124,7 @@ def crawl (url):
     # Coleta dos dados para montagem do índice invertido
 def indice_invertido(doc_frases, doc_links, doc_title):
     score = []
-    folder_path = 'links'
+    folder_path = '../links'
     for filename in os.listdir(folder_path):
         file_path = os.path.join(folder_path, filename)
         if os.path.isfile(file_path):
