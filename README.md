@@ -17,12 +17,11 @@ Sobre a criação de frases e conteúdo a partir do conteúdo no banco de dados,
 
 Para fazer o bot funcionar localmente, é necessário instalar a biblioteca Yahoo Finance com o comando abaixo em seu terminal.
 
-```
-pip install yfinance
-```
-
 Após isso, para fazer o bot funcionar localmente, rode os seguintes comandos no terminal.
 
+```
+python APS4.py
+```
 
 ## Bibliotecas necessárias
 
@@ -33,9 +32,14 @@ pip install -U scikit-learn
 pip install nltk
 ```
 ```
-python APS4.py
+pip install yfinance
 ```
-
+```
+pip install keras
+```
+```
+pip install tensorflow
+```
 
 
 
