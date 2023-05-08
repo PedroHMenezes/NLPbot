@@ -13,6 +13,8 @@ Sobre mais informações acerca do web crawling / scraping, acesse [aqui](ensaio
 
 Sobre a parte de filtragem de conteúdo, acesse [aqui](ensaios/ensaio_3.md).
 
+Sobre a criação de frases e conteúdo a partir do conteúdo no banco de dados, acesse [aqui](ensaios/ensaio_4.md).
+
 Para fazer o bot funcionar localmente, é necessário instalar a biblioteca Yahoo Finance com o comando abaixo em seu terminal.
 
 ```
@@ -31,7 +33,7 @@ pip install -U scikit-learn
 pip install nltk
 ```
 ```
-python APS3.py
+python APS4.py
 ```
 
 
