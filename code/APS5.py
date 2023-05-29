@@ -125,7 +125,6 @@ async def on_message(message):
             organization = config.org_token
             )
         generated_text = response.choices[0].text.strip()
-        print(response)
         await message.channel.send(generated_text)
         
 client.run(config.token)
